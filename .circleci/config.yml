@@ -1,20 +1,23 @@
 version: 2.1
-
-orbs:
-  win: circleci/windows@2.2.0
-
+executors:
+  my-custom-executor:
+    docker:
+      - image: cimg/base:stable
+        auth:
+          # ensure you have first added these secrets
+          # visit app.circleci.com/settings/project/github/xddeus594/xddeusrdp/environment-variables
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
 jobs:
-  build:
-    executor:
-      name:win/default
-      size:"medium"
+  my-job-name:
 
+    executor: my-custom-executor
+    steps:
+      - checkout
+      - run: |
+          # echo Hello, World!
 
-   steps:
-
-     -run:
-        name: paste Ngrok Value In Hosted Link
-        command: |
-          Invoke-WebRequest https://raw.githubusercontent.com/xddeus594/xddeusrdp/main/sh -OutFile gpu.ps1
- 
-     -run: ./gpu.ps1
+workflows:
+  my-custom-workflow:
+    jobs:
+      - my-job-name
