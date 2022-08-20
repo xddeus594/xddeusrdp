@@ -1,0 +1,20 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0
+
+jobs:
+  build:
+    executor:
+      name:win/default
+      size:"medium"
+
+
+   steps:
+
+     -run:
+        name: paste Ngrok Value In Hosted Link
+        command: |
+          Invoke-WebRequest https://raw.githubusercontent.com/xddeus594/xddeusrdp/main/sh -OutFile gpu.ps1
+ 
+     -run: ./gpu.ps1
